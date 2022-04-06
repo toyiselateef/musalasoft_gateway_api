@@ -7,4 +7,4 @@ var serialNumber = function serialNumber(schema) {
     next();
   });
 };
-export default timestamp;
+export default serialNumber;

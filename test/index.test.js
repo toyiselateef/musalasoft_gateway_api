@@ -1,5 +1,4 @@
-//const { saveUser } = require("../src/services/user.service");
-//import {} from "../src/services/gateway.services";
+import { expect } from "chai";
 import {
   postGateway,
   getAllGateways,
@@ -8,24 +7,58 @@ import {
 } from "../src/services/gateway.services.js";
 
 describe("Gateway Unit Tests", function () {
+//   it('resolves', (done) => {
+//     fooAsyncPromise(arg1, arg2).then((res, body) => {
+//         expect(res.statusCode).equal(incorrectValue);
+//         done();
+//     }).catch(done);
+//  });
+  
   describe("Gateway Service Unit Tests", function () {
-    it("should successfully add gateway", async function () {
-      //const serialNumber = Date.now().toString();
+    it("should verify ipv4", function (done) {
+     
       const name = "Ashkay";
-      const ipv4 = "127.0.0.1";
-      const devices = [{ uid: 2, vendor: "ABCD", dateCreated: Date.now() }];
-      const response = await postGateway({
-        name,
-        ipv4,
-        devices,
-      });
-      expect(response.name).to.equal(name);
-      expect(response.dob.toString()).to.equal(new Date(dob).toString());
-      experience.map((exp, index) => {
-        expect(response.devices[index].uid).to.equal(exp.years);
-        expect(response.devices[index].vendor).to.equal(exp.organizationName);
-      });
+      const ipv4 = "127.00.1";
+      const devices = [{ uid: 2, vendor: "ABCD" }];
+
+
+      postGateway(name, ipv4, devices).then((res,body)=>{
+          expect(res.error).to.equal("invalid ipv4 address");
+      expect(res.message).to.equal("");
+      done();
+
+      }).catch(done);
+
     });
-    it("should throw an error if the number of users with the same profileId is not zero", async function () {});
+    
+        it("should not allow more than 10 devices", function (done) {
+         
+          const name = "Ashkay";
+          const ipv4 = "127.0.0.1";
+          const devices = [
+          { uid: 1, vendor: "ABCD" },
+          { uid: 2, vendor: "ABCD" },
+          { uid: 3, vendor: "ABCD" },
+          { uid: 4, vendor: "ABCD" },
+          { uid: 5, vendor: "ABCD" },
+          { uid: 6, vendor: "ABCD" },
+          { uid: 7, vendor: "ABCD" },
+          { uid: 8, vendor: "ABCD" },
+          { uid: 9, vendor: "ABCD" },
+          { uid: 10, vendor: "ABCD" },
+          { uid: 11, vendor: "ABCD" }
+        ];
+    
+    
+          postGateway(name, ipv4, devices).then((res,body)=>{
+              expect(res.error).to.equal("number of devices cannot be greater than 10");
+          expect(res.message).to.equal("");
+          done();
+    
+          }).catch(done);
+        
+     
+    });
+    it("should be able to add or remove devices from Gateway", function () {});
   });
 });

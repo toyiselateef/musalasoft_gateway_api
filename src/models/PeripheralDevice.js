@@ -7,6 +7,7 @@ const PeripheralDeviceSchema = new mongoose.Schema({
   status: { type: String, enum: ["online", "offline"], default: "offline" },
   gateway: { type: mongoose.Schema.Types.ObjectId, ref: "Gateway" },
 });
+
 const PeripheralDevice = mongoose.model(
   "PeripheralDevice",
   PeripheralDeviceSchema

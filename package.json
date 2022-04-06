@@ -4,9 +4,9 @@
   "description": "musala gateway api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --timeout 10000",
     "start": "node index",
-    "devStart": "concurrently --kill-others \"node swagger.js\" \"nodemon index\"",
+    "devStart": "concurrently --kill-others \"node swagger.js\" \"node index\"",
     "swagger-autogen": "node swagger.js"
   },
   "type": "module",

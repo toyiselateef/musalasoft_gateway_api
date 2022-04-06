@@ -22,13 +22,13 @@ const postGateway = async (name, ipv4, devices) => {
     return response;
   }
 
-  let gateway = await Gateway.create({ name, devices, ipv4 });
+  let gateway = await Gateway.create({ name, ipv4 });
 
   for (let index = 0; index < devices.length; index++) {
     const device = devices[index];
     device.gateway = gateway.id;
 
-    await Gateway.create(device);
+    await PeripheralDevice.create(device);
   }
 
   gateway = await Gateway.find({}).populate("devices");
